@@ -1,0 +1,74 @@
+﻿@using DataTables.AspNetCore.Mvc
+
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="@Url.Action("Create","Account")" class="btn btn-small btn-primary">@_loc.GetLocalizedHtmlString("AddnewUser").Value <i class="fa fa-plus"></i></a>
+            <button onclick="modJs.showFilters();return false;" class="btn btn-small btn-primary">@_loc.GetLocalizedHtmlString("Filter").Value<i class="fa fa-filter"></i></button>&nbsp;&nbsp;<button id="Employee_resetFilters" onclick="modJs.resetFilters();return false;" class="btn btn-small btn-default" style="display: none;">
+                Reset Filters
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="box-body table-responsive" style="margin-top:30px">
+
+            <div class="row ">
+                <div style="margin: 20px">
+
+                    @(Html.Ext().Grid<AccountQueryViewModel>
+    ()
+    .Name("accounts").RowId("id").ClassName("table table-bordered dataTable")
+    .Columns(cols =>
+    {
+        cols.Add(c => c.UserName).Data("userName").Title(_loc.GetLocalizedHtmlString("UserName").Value);
+        //if(User.IsInRole("Admin"))
+        cols.Add(c => c.Role).Data("role").Title(_loc.GetLocalizedHtmlString("Role").Value);
+        cols.Add(c => c.Email).Data("email").Title(_loc.GetLocalizedHtmlString("Email").Value);
+
+        cols.Add(c => c.Phone).Data("phone").Title(_loc.GetLocalizedHtmlString("Phone").Value);
+
+        cols.Add(c => c.Id).Data("id").Render(() => "onRender").Click("onClick"); ; //.Click("onClick");
+    })
+    .ServerSide(true)
+    .LengthMenu(c =>
+    {
+        c.Add(new int[] { 10, 25, 50 });
+        c.Add(-1, "All");
+    })
+    .DataSource(c =>
+    c.Ajax().Url(Url.Action("GetList", "Account")).Method("GET").DataSrc("data")))
+                </div>
+            </div>
+        </div>
+        @{
+            Html.RenderPartial("_DeleteModal");
+        }
+    </div>
+<script>
+    var currentId;
+    var currentRow;
+    function onRender(data, type, row, meta) {
+        //console.log(row);
+
+        // <!--Trigger the modal with a button -- >
+        // <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        return  ' <a type="button" onClick="onClick(this)"  data-type="remove" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-lg fa-fw fa-trash-o"></i></a>'
+            ;
+    }
+    function onClick(el) {
+        var id = jQuery(el).closest('tr').attr('id');
+        console.log(id);
+        currentId = id;
+
+    }
+    function onDelete() {
+        $("#confirm-delete").modal("hide");
+        $.ajax({
+            url: '@Url.Action("Delete")/?id=' + currentId,
+            type: 'post',
+            success: function (result) {
+                // Do something with the result
+                var table = $('#example').DataTable();
+                table.ajax.reload();
+            }
+        });
+    }
+</script>

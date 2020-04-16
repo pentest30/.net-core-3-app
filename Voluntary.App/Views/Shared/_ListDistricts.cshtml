@@ -1,0 +1,80 @@
+﻿@using DataTables.AspNetCore.Mvc
+
+<div class="row">
+    <div class="col-xs-12">
+       @if (User.IsInRole("admin") || User.IsInRole("user"))
+       {
+           <a href="@Url.Action("Create","Districts")" class="btn btn-small btn-primary">@_loc.GetLocalizedHtmlString("Add district").Value <i class="fa fa-plus"></i></a>
+       
+       }
+        <button onclick="modJs.showFilters();return false;" class="btn btn-small btn-primary">@_loc.GetLocalizedHtmlString("Filter").Value<i class="fa fa-filter"></i></button>&nbsp;&nbsp;<button id="Employee_resetFilters" onclick="modJs.resetFilters();return false;" class="btn btn-small btn-default" style="display: none;">
+            Reset Filters
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="box-body table-responsive" style="margin-top:30px">
+
+        <div class="row ">
+            <div style="margin: 20px">
+
+                @(Html.Ext().Grid<DistrictQueryViewModel>
+    ()
+    .Name("volunteer").RowId("id").ClassName("table table-bordered dataTable")
+    .Columns(cols =>
+    {
+        cols.Add(c => c.Name).Data("name").Title(_loc.GetLocalizedHtmlString("Name").Value);
+        //if(User.IsInRole("Admin"))
+        cols.Add(c => c.NameAr).Data("nameAr").Title(_loc.GetLocalizedHtmlString("NameAr").Value);
+        cols.Add(c => c.Street).Data("street").Title(_loc.GetLocalizedHtmlString("Street").Value);
+
+        cols.Add(c => c.ZipCode).Data("zipCode").Title(_loc.GetLocalizedHtmlString("ZipCode").Value);
+        cols.Add(c => c.Department).Data("department").Title(_loc.GetLocalizedHtmlString("Department").Value);
+        //if(User.IsInRole("Admin"))
+        cols.Add(c => c.City).Data("city").Title(_loc.GetLocalizedHtmlString("City").Value);
+        if (User.IsInRole("admin") || User.IsInRole("user"))
+        
+        cols.Add(c => c.Id).Data("id").Render(() => "onRenderDistrict").Click("onClickDistrict"); ; //.Click("onClick");
+    })
+    .ServerSide(true)
+    .LengthMenu(c =>
+    {
+        c.Add(new int[] { 10, 25, 50 });
+        c.Add(-1, "All");
+    })
+    .DataSource(c =>
+    c.Ajax().Url(Url.Action("GetList", "Districts")).Method("GET").DataSrc("data")))
+            </div>
+        </div>
+    </div>
+    <partial name="_DistDeletePopup"/>
+</div>
+<script>
+    var currentDistrictId;
+    var currentDistRow;
+    function onRenderDistrict(data, type, row, meta) {
+        //console.log(row);
+        currentDistRow = row;
+        // <!--Trigger the modal with a button -- >
+        // <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        return  ' <a type="button" onClick="onClickDistrict(this)"  data-type="remove" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-dist-delete"><i class="fa fa-lg fa-fw fa-trash-o"></i></a>'
+            ;
+    }
+    function onClickDistrict(el) {
+        var id = jQuery(el).closest('tr').attr('id');
+       // console.log(id);
+        currentDistrictId = id;
+
+    }
+    function onDistDelete() {
+        $("#confirm-delete").modal("hide");
+        $.ajax({
+            url: '@Url.Action("Delete", "Districts")/?id=' + currentDistrictId,
+            type: 'post',
+            success: function (result) {
+                // Do something with the result
+                var table = $('#example').DataTable();
+                table.ajax.reload();
+            }
+        });
+    }
+</script>

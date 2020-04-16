@@ -1,0 +1,49 @@
+﻿
+<aside class="right-side">
+    <section class="content-header">
+        <h1 localize-content>@_loc.GetLocalizedHtmlString("ListOfVolunteers").Value</h1>
+
+    </section>
+    <section class="content">
+        <div class="span9">
+
+            <ul class="nav nav-tabs" id="modTab" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">
+                <li class="active"><a id="tabEmployee" href="#tabPageEmployee" localize-content>@_loc.GetLocalizedHtmlString("ListOfVolunteers").Value</a></li>
+                <li><a id="tabDistricts" href="#tabPageDistrict" localize-content>@_loc.GetLocalizedHtmlString("District")</a></li>
+<li><a id="tabFunctions" href="#tabPageFunction" localize-content>@_loc.GetLocalizedHtmlString("Functions")</a></li>
+
+
+</ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabPageEmployee">
+                    <div id="Employee" class="reviewBlock" data-content="List" style="padding:15px;">
+                        @{
+                            Html.RenderPartial("_List");
+                        }
+                    </div>
+
+
+                </div>
+                <div class="tab-pane" id="tabPageDistrict">
+                    <div id="districts" class="reviewBlock" data-content="List" style="padding:15px;">
+                        @{
+                            Html.RenderPartialAsync("_ListDistricts");
+                        }
+                    </div>
+
+
+                </div>
+                <div class="tab-pane" id="tabPageFunction">
+                    <div id="districts" class="reviewBlock" data-content="List" style="padding:15px;">
+                        @{
+                            Html.RenderPartialAsync("_ListTasks");
+                        }
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>

@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            @_loc.GetLocalizedHtmlString("ListOfVolunteers").Value
+        </h1>
+
+    </section>
+    <section class="content">
+        <div class="span9">
+
+            <ul class="nav nav-tabs" id="modTab" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">
+                <li class="active"><a id="tabDistricts" href="#tabPageDistrict"> @_loc.GetLocalizedHtmlString("District").Value</a></li>
+                </ul>
+
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="tabPageDistrict">
+                    <div id="districts" class="reviewBlock" data-content="List" style="padding:15px;">
+                        @{
+                            Html.RenderPartialAsync("_ListDistricts");
+                        }
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</aside>
+<script>
+    var currentId;
+    var currentRow;
+    function onRender(data, type, row, meta) {
+        console.log(row);
+       
+        // <!--Trigger the modal with a button -- >
+        // <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        return '<a type="button" data-type="view" class="btn btn-sm btn-default" href="@Url.Action("EditMenu","Menu")/?id=' + row.id + '"><i class="fa fa-lg fa-fw fa-edit"></i></a>' +
+                ' <a type="button" onClick="onClick(this)"  data-type="remove" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-lg fa-fw fa-trash-o"></i></a>'
+            ;
+    }
+    function onClick(el) {
+        var id = jQuery(el).closest('tr').attr('id');
+        console.log(id);
+        currentId = id;
+      
+    }
+</script>

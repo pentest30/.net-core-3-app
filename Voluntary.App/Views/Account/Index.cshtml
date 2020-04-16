@@ -1,0 +1,35 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            @_loc.GetLocalizedHtmlString("ListOfUsers").Value
+        </h1>
+
+    </section>
+    <section class="content">
+        <div class="span9">
+
+            <ul class="nav nav-tabs" id="modTab" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">
+                <li class="active"><a id="tabDistricts" href="#tabPageDistrict">@_loc.GetLocalizedHtmlString("ListOfUsers").Value
+                </a></li>
+            </ul>
+
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="tabPageDistrict">
+                    <div id="districts" class="reviewBlock" data-content="List" style="padding:15px;">
+                        @{
+                            Html.RenderPartialAsync("_ListAccounts");
+                        }
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</aside>

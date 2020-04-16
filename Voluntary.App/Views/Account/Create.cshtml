@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model AddOrUpdateAccount
+@inject IViewLocalizer Localizer
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            @_loc.GetLocalizedHtmlString("AddnewUser").Value
+        </h1>
+
+    </section>
+    <section class="content">
+        <div class="span9">
+
+
+
+
+            <ul class="nav nav-tabs" id="modTabCreate" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">
+                <li class="active"><a id="tabVolunteer" href="#tabCreateVolunteer">@_loc.GetLocalizedHtmlString("PersonalInfo").Value</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabCreateVolunteer">
+                    <form class="form-horizontal" method="post" action="@Url.Action("Create")">
+                        <div id="Employee" class="reviewBlock" data-content="Form" style="padding-left: 30px; background-color: white;">
+
+                            <div class="row">
+                                <div class="col-md-9" style=" margin-top: 20px">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("UserName").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="UserName" type="text" class="form-control">
+                                            <span asp-validation-for="UserName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="text2" class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Password").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="Password" type="password" class="form-control">
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="text2" class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("ConfirmPassword").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="ConfirmPassword" type="password" class="form-control">
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="text3" class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Email").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input style="text-transform:uppercase" asp-for="Email" type="text" class="form-control">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Phone").Value </label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="PhoneNumber" type="text" class="form-control">
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Role").Value</label>
+                                        <div class="controls col-sm-6">
+                                            <select id="RoleName" asp-items='@ViewData["roles"] as SelectList' asp-for="RoleName" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group row">
+                                        <div class="controls col-sm-9">
+                                            <button type="submit" class="saveBtn btn btn-primary pull-right"><i class="fa fa-save"></i> @_loc.GetLocalizedHtmlString("Save").Value</button>
+                                            <a href="@Url.Action("Index", "Account")" class="cancelBtn btn pull-right" style="margin-right:5px;"><i class="fa fa-times-circle-o"></i> @_loc.GetLocalizedHtmlString("Cancel").Value</a>
+                                        </div>
+                                        <div class="controls col-sm-3">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+</aside>

@@ -1,0 +1,19 @@
+﻿<div class="modal fade" id="confirm-dist-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @_loc.GetLocalizedHtmlString("DeleteTitle").Value
+
+            </div>
+            <div class="modal-body">
+                <h4>
+                    @_loc.GetLocalizedHtmlString("DeleteMsg").Value
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@_loc.GetLocalizedHtmlString("Cancel")</button>
+                <a onclick="onDistDelete()" class="btn btn-success btn-ok">@_loc.GetLocalizedHtmlString("ButtonDelete")</a>
+            </div>
+        </div>
+    </div>
+</div>

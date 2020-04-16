@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model AddDistrictViewModel
+@inject IViewLocalizer Localizer
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            @_loc.GetLocalizedHtmlString("Add new volunteer").Value
+        </h1>
+
+    </section>
+    <section class="content">
+        <div class="span9">
+
+
+
+
+            <ul class="nav nav-tabs" id="modTabCreate" style="margin-bottom:0px;margin-left:5px;border-bottom: none;">
+                <li class="active"><a id="tabVolunteer" href="#tabCreateVolunteer">@_loc.GetLocalizedHtmlString("PersonalInfo").Value</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabCreateVolunteer">
+                    <form class="form-horizontal" method="post" action="@Url.Action("Create")">
+                        <div id="Employee" class="reviewBlock" data-content="Form" style="padding-left: 30px; background-color: white;">
+
+                            <div class="row">
+                                <div class="col-md-9" style=" margin-top: 20px">
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Name").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="Name" type="text" class="form-control">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="text2" class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("NameAr").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="NameAr" type="text" class="form-control">
+                                            <span asp-validation-for="NameAr" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group row">
+                                        <label for="text3" class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("City").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input style="text-transform:uppercase" asp-for="City" type="text" class="form-control">
+                                            <span asp-validation-for="City" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Department").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="Department" type="text" class="form-control">
+                                            <span asp-validation-for="Department" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("Street").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="Street" type="text" class="form-control">
+                                            <span asp-validation-for="Street" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 control-label">@_loc.GetLocalizedHtmlString("ZipCode").Value <font class="redFont">*</font></label>
+                                        <div class="controls col-sm-6">
+                                            <input asp-for="ZipCode" type="text" class="form-control">
+                                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="control-group row">
+                                        <div class="controls col-sm-9">
+                                            <button type="submit" class="saveBtn btn btn-primary pull-right"><i class="fa fa-save"></i> @_loc.GetLocalizedHtmlString("Save").Value</button>
+                                            <a href="@Url.Action("Index", "Volunteers")" class="cancelBtn btn pull-right" style="margin-right:5px;"><i class="fa fa-times-circle-o"></i> @_loc.GetLocalizedHtmlString("Cancel").Value</a>
+                                        </div>
+                                        <div class="controls col-sm-3">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+              
+            </div>
+
+
+        </div>
+    </section>
+</aside>
